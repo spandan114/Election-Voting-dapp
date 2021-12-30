@@ -7,6 +7,7 @@ import Election from './contracts/Election.json'
 const App = () => {
 
   const loadWeb3 = async () => {
+    //connect web3 with http provider
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
       await window.ethereum.enable();
@@ -22,13 +23,17 @@ const App = () => {
     const web3 = window.web3;
     const accounts =await web3.eth.getAccounts();
     const account = accounts[0]
-
+    //get network id
     const networkId = await web3.eth.net.getId()
+    //get network id details from abi
     const electionData = Election.networks[networkId]
     if(electionData){
-  
-      const contract = new web3.eth.Contract(Election.abi,electionData.address);
-      console.log(contract)
+      
+      //connect smart contract with web3
+      const election = new web3.eth.Contract(Election.abi,electionData.address);
+      //await election.methods.startElection("abcd voting").send({ from: account })
+      const owner =await election.methods.getAllCandidate().call()
+      console.log(owner) 
     }else{
       alert("wallet not connected")
     }

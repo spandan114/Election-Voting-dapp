@@ -38,6 +38,10 @@ contract Election{
          candidates.push(Candidate(_name,_age,0));
     }
 
+    function getAllCandidate() public returns(Candidate[] memory){
+       return candidates;
+    }
+
     function vote(uint _voteIndex,uint _age,string memory _name) public {
         require(_age > 18,"You are not eligible for vote !");
         require(!voters[msg.sender].voted,"You are alredy voted !");
