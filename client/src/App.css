@@ -1,12 +1,6 @@
 .App {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -20,12 +14,30 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.election-name{
+  font-size: 1.5rem;
+}
+.candidate-name{
+  font-size: 1.2rem;
+}
+
+.card {
+  width: 60%;
+  color: #282c34;
+}
+.btn{
+  width: 6rem;
+  height: 3rem;
+  cursor: pointer;
+}
+.admin{
+  text-align: start;
+}
+.btn-block{
+  width: 100%;
+  text-align: center;
 }
 
 @keyframes App-logo-spin {
