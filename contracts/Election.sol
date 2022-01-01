@@ -9,8 +9,6 @@ struct Candidate{
 }
 
 struct Voter{
-    string name;
-    uint age;
     uint vote;
     bool voted;
 }
@@ -22,6 +20,7 @@ contract Election{
     mapping(address => Voter) public voters;
     Candidate[] public candidates;
     uint public totalVotes;
+    string public winner;
 
     modifier ownerOnly{
         require(msg.sender == owner,"You dont have rights to perform this operation !");
@@ -42,12 +41,9 @@ contract Election{
        return candidates;
     }
 
-    function vote(uint _voteIndex,uint _age,string memory _name) public {
-        require(_age > 18,"You are not eligible for vote !");
+    function vote(uint _voteIndex) public {
         require(!voters[msg.sender].voted,"You are alredy voted !");
 
-        voters[msg.sender].age = _age;
-        voters[msg.sender].name = _name;
         voters[msg.sender].vote = _voteIndex;
         voters[msg.sender].voted = true;
         candidates[_voteIndex].voteCount += 1; 
@@ -65,7 +61,8 @@ contract Election{
         }
     }
 
-    function winnerName() public view returns(string memory winnerName_){
+    function winnerName() public returns(string memory winnerName_){
+        winner = candidates[selectWinner()].name;
         winnerName_ = candidates[selectWinner()].name;
     }
 

@@ -1,11 +1,19 @@
 import React,{useState} from "react";
 
-const AdminComponent = ({startElection}) => {
+const AdminComponent = ({startElection,addCandidate}) => {
 
     const [electionName, setElectionName] = useState()
+    const [candidateName, setCandidateName] = useState()
+    const [candidateAge, setCandidateAge] = useState()
+
     const start = (e) =>{
         e.preventDefault()
         startElection(electionName)
+    }
+
+    const candidate = (e) =>{
+      e.preventDefault()
+      addCandidate(candidateName,candidateAge)
     }
 
   return (
@@ -67,14 +75,14 @@ const AdminComponent = ({startElection}) => {
           role="tabpanel"
           aria-labelledby="add-candidate-tab"
         >
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={(e) => candidate(e)}>
             <div className="mb-3">
               <label className="form-label text-start">Candidate name</label>
-              <input type="text" className="form-control" />
+              <input type="text" className="form-control" onChange={(e)=>setCandidateName(e.target.value)} />
             </div>
             <div className="mb-3">
               <label className="form-label text-start">Candidate age</label>
-              <input type="number" className="form-control" />
+              <input type="number" className="form-control" onChange={(e)=>setCandidateAge(e.target.value)} />
             </div>
             <button type="submit" className="btn btn-success btn-block">
               Add candidate

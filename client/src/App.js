@@ -82,6 +82,18 @@ const App = () => {
     })
   }
 
+  const voteCandidate= async(candidateId) =>{
+    await electionContract.methods.vote(candidateId)
+    .send({ from: account })
+    .on('transactionHash', function(hash){
+      console.log("candidate added")
+      console.log(hash)
+    })
+    .on('error', function(error){ 
+      console.log(error)
+    })
+  }
+
   if(Loader){
     return <p>Loading</p>
   }else{
@@ -100,6 +112,8 @@ const App = () => {
             electionName={electionName}
             switchAdmin={setComponent}
             account={account}
+            candidateList={candidateList}
+            voteCandidate={voteCandidate}
             />
           }
 
